@@ -7,7 +7,10 @@
 		request.identityProviderModel.setCertificate(form.certificate);
 
 		data = serializeJson(request.identityProviderModel)
-		fileWrite("config/" & request.identityProvider & ".json", data)
+		if ( !directoryExists(  expandPath('config') ) ) {
+            directoryCreate( expandPath('config') );
+        }
+        fileWrite("config/" & request.identityProvider & ".json", data)
         session.saved = true;
         sleep(250);
         location(cgi.http_referer,false);
